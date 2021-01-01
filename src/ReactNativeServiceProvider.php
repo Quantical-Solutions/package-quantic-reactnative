@@ -40,6 +40,7 @@ class ReactNativeServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../stubs/reactnative.php' => config_path('reactnative.php'),
                 __DIR__.'/../stubs/ReactNativeCreatePage.php' => app_path('Console/Commands/ReactNativeCreatePage.php'),
+                __DIR__.'/../stubs/ReactNative' => app_path('ReactNative'),
             ], 'reactnative-support');
 
             /*$this->publishes([
