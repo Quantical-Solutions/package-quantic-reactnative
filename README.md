@@ -1,2 +1,2 @@
-# package-quantic-igniter
-Quantic Igniter PHP Package
+# package-quantic-reactnative
+Quantic ReactNative PHP Package
