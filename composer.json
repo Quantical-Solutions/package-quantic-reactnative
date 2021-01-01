@@ -10,7 +10,7 @@
       "name": "Frédéric Geffray",
       "email": "in-touch-fg@quanticalsolutions.com",
       "homepage": "https://quanticalsolutions.com",
-      "role": "Applications Conceptor"
+      "role": "Developer"
     }
   ],
   "require": {
@@ -27,5 +27,19 @@
       "Quantic\\ReactNative\\Tests": "tests/"
     }
   },
-  "minimum-stability": "stable"
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.x-dev"
+    },
+    "laravel": {
+      "providers": [
+        "Quantic\\ReactNative\\ReactNativeServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
