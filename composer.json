@@ -1,0 +1,31 @@
+{
+  "name": "quantic/reactnative",
+  "type": "library",
+  "description": "Quantic Framework ReactNative for Laravel",
+  "keywords": ["quantic","reactnative"],
+  "homepage": "https://github.com/Quantical-Solutions/package-quantic-reactnative",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Frédéric Geffray",
+      "email": "in-touch-fg@quanticalsolutions.com",
+      "homepage": "https://quanticalsolutions.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.3.0",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Quantic\\ReactNative\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Quantic\\ReactNative\\Tests": "tests/"
+    }
+  },
+  "minimum-stability": "stable"
+}
