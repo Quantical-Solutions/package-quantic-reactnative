@@ -1,5 +1,5 @@
 {
-  "name": "@quantic/reactnative",
+  "name": "quantic-IT/reactnative",
   "type": "library",
   "description": "Quantic Framework ReactNative for Laravel",
   "keywords": ["quantic","reactnative"],
