@@ -116,14 +116,24 @@ class Compiler
             }
             $content = ob_get_clean();
 
-            $newFile = fopen($ifExistFile, 'w');
-            fwrite($newFile, $content);
-            fclose($newFile);
+            if ($content !== '') {
 
-            $this->response = [
-                'type' => 'info',
-                'response' => $dest_filename . ' has been compiled and copied successfuly to ReactNative assets directory.'
-            ];
+                $newFile = fopen($ifExistFile, 'w');
+                fwrite($newFile, $content);
+                fclose($newFile);
+
+                $this->response = [
+                    'type' => 'info',
+                    'response' => $dest_filename . ' has been compiled and copied successfuly to ReactNative assets directory.'
+                ];
+
+            } else {
+
+                $this->response = [
+                    'type' => 'warn',
+                    'response' => $dest_filename . ' has not been created because there is no source file to compile.'
+                ];
+            }
 
         } catch (\ErrorException $e) {
             $this->compileError();
