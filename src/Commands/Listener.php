@@ -2,30 +2,52 @@
 
 namespace Quantic\ReactNative\Commands;
 
+use Quantic\ReactNative\Commands\Workers;
+
 class Listener
 {
-    public Array $response;
+    private Array $response;
+    private Object $console;
 
     public function __construct($console, $method, $arg, $option)
     {
-        $this->response = [
-            'type' => 'warn',
-            'response' => 'Salut ReactNative'
-        ];
-        
-        $this->render($console);
+        $this->console = $console;
+        $this->parseJobToDo($method, $arg, $option);
     }
 
-    private function render($console)
+    private function parseJobToDo($method, $arg, $option)
+    {
+        if ($arg === null) {
+
+            switch ($method)
+            {
+                case 'create': $this->console->error('You need to explicit a file name'); break;
+                case 'compile': $this->console->error('You need to specify an extension type'); break;
+                default:
+                    $this->console->error('reactnative":' . $method . '" does not exist...');
+                    $this->console->info('Methods available :');
+                    $this->console->info(':create <filename> [–-type=<filetype>]');
+                    break;
+            }
+
+        } else {
+
+            $workers = new Workers($method, $arg, $option);
+            $this->response = $workers->response;
+            $this->render();
+        }
+    }
+
+    private function render()
     {
         $returnType = $this->response['type'];
         $returnResponse = $this->response['response'];
         switch ($returnType)
         {
-            case 'line': $console->line($returnResponse); break;
-            case 'info': $console->info($returnResponse); break;
-            case 'warn': $console->warn($returnResponse); break;
-            case 'error': $console->error($returnResponse); break;
+            case 'line': $this->console->line($returnResponse); break;
+            case 'info': $this->console->info($returnResponse); break;
+            case 'warn': $this->console->warn($returnResponse); break;
+            case 'error': $this->console->error($returnResponse); break;
         }
     }
 }

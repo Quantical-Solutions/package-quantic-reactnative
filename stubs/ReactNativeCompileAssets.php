@@ -13,7 +13,7 @@ class ReactNativeCompileAssets extends Command
      * @var string
      */
     protected $signature = 'reactnative:compile 
-                            {extension : File type .css or .js}';
+                            {extension? : File type .css or .js}';
 
     /**
      * The console command description.
