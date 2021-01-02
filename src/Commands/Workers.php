@@ -2,8 +2,8 @@
 
 namespace Quantic\ReactNative\Commands;
 
-use Quantic\ReactNative\Commands\Compiler;
-use Quantic\ReactNative\Commands\Creater;
+use Quantic\ReactNative\Jobbers\Compiler;
+use Quantic\ReactNative\Jobbers\Creater;
 
 class Workers
 {

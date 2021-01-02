@@ -1,8 +1,8 @@
 <?php
 
-namespace Quantic\ReactNative\Commands;
+namespace Quantic\ReactNative\Jobbers;
 
-use Quantic\ReactNative\Commands\HtmlStringParser;
+use Quantic\ReactNative\Tools\HtmlStringParser;
 
 class Creater extends HtmlStringParser
 {

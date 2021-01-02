@@ -1,6 +1,6 @@
 <?php
 
-namespace Quantic\ReactNative\Commands;
+namespace Quantic\ReactNative\Jobbers;
 
 class Compiler
 {
