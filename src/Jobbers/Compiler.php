@@ -6,7 +6,7 @@ class Compiler
 {
     public array $response;
     private string $arg;
-
+    
     public function __construct($arg)
     {
         $this->arg = $arg;
@@ -133,11 +133,21 @@ class Compiler
                 fwrite($newFile, $content);
                 fclose($newFile);
 
-                $this->response = [
-                    'type' => 'info',
-                    'response' => $dest_filename . ' has been compiled and copied successfuly to ReactNative assets directory.'
-                ];
+                if ($this->arg === 'all') {
 
+                    $this->response = [
+                        'type' => 'info',
+                        'response' => 'All files have been compiled and copied successfuly to ReactNative assets directory.'
+                    ];
+
+                } else {
+
+                    $this->response = [
+                        'type' => 'info',
+                        'response' => $dest_filename . ' has been compiled and copied successfuly to ReactNative assets directory.'
+                    ];
+                }
+                
             } else {
 
                 $this->response = [
@@ -178,7 +188,7 @@ class Compiler
 
             $this->response = [
                 'type' => 'info',
-                'response' => 'All assets has been deleted from ReactNative assets directory.'
+                'response' => 'All assets have been deleted from ReactNative assets directory.'
             ];
 
         } catch (\ErrorException $e) {

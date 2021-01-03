@@ -20,9 +20,7 @@ class Creater extends HtmlStringParser
 
     private function create()
     {
-        $this->response = [
-            'type' => 'info',
-            'response' => 'Create Class is alive !'
-        ];
+        $build = $this->buildCapsule($this->arg, $this->option);
+        $this->response = $this->result;
     }
 }

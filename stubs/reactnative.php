@@ -15,7 +15,7 @@ return [
         ],
         'scripts' => [
             'head' => [
-                base_path('public/js/jquery.min.js')
+                //base_path('public/js/jquery.min.js')
             ],
             'footer' => [
                 base_path('public/js/app.js')
