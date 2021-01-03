@@ -15,6 +15,11 @@ class Listener
         $this->parseJobToDo($method, $arg, $option);
     }
 
+    /**
+     * Verify if the invocated method exists
+     *
+     * @return void
+     */
     private function parseJobToDo($method, $arg, $option)
     {
         if ($arg === null) {
@@ -38,6 +43,11 @@ class Listener
         }
     }
 
+    /**
+     * Write message in console depending on the task statement
+     *
+     * @return void
+     */
     private function render()
     {
         $returnType = $this->response['type'];

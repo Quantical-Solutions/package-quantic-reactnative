@@ -14,6 +14,11 @@ class Compiler
         return $this->response;
     }
 
+    /**
+     * Filters argument $arg type to compile the rights assets
+     *
+     * @return void
+     */
     private function compile()
     {
         switch ($this->arg) {
@@ -100,6 +105,12 @@ class Compiler
         }
     }
 
+    /**
+     * Verify if asset exists. If it exists, the asset is deleted then recreated.
+     * If not, the asset is simply created.
+     *
+     * @return void
+     */
     private function assetsParser($files, $dest_filename)
     {
         try {
@@ -140,6 +151,11 @@ class Compiler
         }
     }
 
+    /**
+     * Remove all ReactNative assets.
+     *
+     * @return void
+     */
     private function removeAssets()
     {
         try {
@@ -147,15 +163,19 @@ class Compiler
             $styles = base_path('app/ReactNative/assets/dist/styles.css');
             $libs = base_path('app/ReactNative/assets/dist/libs.js');
             $scripts = base_path('app/ReactNative/assets/dist/scripts.js');
+
             if (file_exists($styles)) {
                 unlink($styles);
             }
+
             if (file_exists($libs)) {
                 unlink($libs);
             }
+
             if (file_exists($scripts)) {
                 unlink($scripts);
             }
+
             $this->response = [
                 'type' => 'info',
                 'response' => 'All assets has been deleted from ReactNative assets directory.'
@@ -170,6 +190,11 @@ class Compiler
         }
     }
 
+    /**
+     * If permissions are not allowed, an error message is sent to the CLI
+     *
+     * @return void
+     */
     private function compileError()
     {
         $this->response = [
