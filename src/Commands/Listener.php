@@ -26,12 +26,26 @@ class Listener
 
             switch ($method)
             {
-                case 'create': $this->console->error('You need to explicit a file name'); break;
-                case 'compile': $this->console->error('You need to specify an extension type'); break;
-                default:
-                    $this->console->error('reactnative":' . $method . '" does not exist...');
-                    $this->console->info('Methods available :');
-                    $this->console->info(':create <filename> [–-type=<filetype>]');
+                case 'create':
+                    $this->console->newline();
+                    $this->console->error('Error -> missing argument...');
+                    $this->console->warn('You need to explicit a file name like in the exemple below:');
+                    $this->console->info('reactnative:create head | footer | all');
+                    $this->console->newline();
+                    break;
+                case 'compile':
+                    $this->console->newline();
+                    $this->console->error('Error -> missing argument...');
+                    $this->console->warn('You need to specify an asset type like in the exemple below:');
+                    $this->console->info('reactnative:compile styles | libs | scripts | all | remove');
+                    $this->console->newline();
+                    break;
+                case 'url':
+                    $this->console->newline();
+                    $this->console->error('Error -> missing argument...');
+                    $this->console->warn('You need to specify an URL for the WebView component source like in the exemple below:');
+                    $this->console->info('reactnative:url http://exemple.com');
+                    $this->console->newline();
                     break;
             }
 
@@ -54,10 +68,38 @@ class Listener
         $returnResponse = $this->response['response'];
         switch ($returnType)
         {
-            case 'line': $this->console->line($returnResponse); break;
-            case 'info': $this->console->info($returnResponse); break;
-            case 'warn': $this->console->warn($returnResponse); break;
-            case 'error': $this->console->error($returnResponse); break;
+            case 'line':
+                $this->console->newline();
+                $this->console->line('----------------');
+                $this->console->warn('😶 Information :');
+                $this->console->line('----------------');
+                $this->console->line($returnResponse);
+                $this->console->newline();
+                break;
+            case 'info':
+                $this->console->newline();
+                $this->console->line('-------------');
+                $this->console->warn('😎 Good Job !');
+                $this->console->line('-------------');
+                $this->console->info($returnResponse);
+                $this->console->newline();
+                break;
+            case 'warn':
+                $this->console->newline();
+                $this->console->line('------------');
+                $this->console->warn('🤔 Warning :');
+                $this->console->line('------------');
+                $this->console->warn($returnResponse);
+                $this->console->newline();
+                break;
+            case 'error':
+                $this->console->newline();
+                $this->console->line('---------------------');
+                $this->console->warn('😓 What\'s the hell ?');
+                $this->console->line('---------------------');
+                $this->console->error($returnResponse);
+                $this->console->newline();
+                break;
         }
     }
 }

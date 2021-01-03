@@ -8,7 +8,7 @@ class HtmlStringParser
     private string $footer;
     public array $result;
     
-    public function buildCapsule($arg, $option)
+    public function buildCapsule($arg)
     {
         $headStyles = $headLibs = $footerScripts = '';
         
@@ -41,10 +41,10 @@ class HtmlStringParser
         require dirname(dirname(__DIR__)) . '/stubs/templates/footer.template.php';
         $this->footer = ob_get_clean();
 
-        $this->renderComponents($arg, $option);
+        $this->renderComponents($arg);
     }
     
-    private function renderComponents($arg, $option)
+    private function renderComponents($arg)
     {
         $dist = app_path('ReactNative/includes/common');
 

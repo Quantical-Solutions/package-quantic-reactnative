@@ -7,20 +7,18 @@ use Quantic\ReactNative\Tools\HtmlStringParser;
 class Creater extends HtmlStringParser
 {
     private string $arg;
-    private string $option;
     public array $response;
 
-    public function __construct($arg, $option)
+    public function __construct($arg)
     {
         $this->arg = $arg;
-        $this->option = $option;
         $this->create();
         return $this->response;
     }
 
     private function create()
     {
-        $build = $this->buildCapsule($this->arg, $this->option);
+        $build = $this->buildCapsule($this->arg);
         $this->response = $this->result;
     }
 }

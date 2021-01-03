@@ -4,16 +4,15 @@ namespace Quantic\ReactNative\Commands;
 
 use Quantic\ReactNative\Jobbers\Compiler;
 use Quantic\ReactNative\Jobbers\Creater;
+use Quantic\ReactNative\Jobbers\Url;
 
 class Workers
 {
     private string $arg;
-    private string $option;
     public array $response;
 
-    public function __construct($method, $arg, $option)
+    public function __construct($method, $arg)
     {
-        $this->option = $option;
         $this->arg = $arg;
         return $this->$method();
     }
@@ -25,7 +24,7 @@ class Workers
      */
     private function create()
     {
-        $creater = new Creater($this->arg, $this->option);
+        $creater = new Creater($this->arg);
         $this->response = $creater->response;
     }
 
@@ -38,5 +37,16 @@ class Workers
     {
         $compiler = new Compiler($this->arg);
         $this->response = $compiler->response;
+    }
+
+    /**
+     * Use Quantic\ReactNative\Jobbers\Compiler to compile assets files
+     *
+     * @return void
+     */
+    private function url()
+    {
+        $url = new Url($this->arg);
+        $this->response = $url->response;
     }
 }
