@@ -1,17 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { WebView } from 'react-native-webview';
+import {StatusBar, View, StyleSheet} from 'react-native';
+import {Url} from './includes/components/Url';
 
 export default class App extends Component {
 
     render() {
-
         return (
-
-            <WebView
-                source={{ uri: 'https://omnivision.quanticalsolutions.com/' }}
-            />
+            <View style={styles.container}>
+                <StatusBar hidden={false} backgroundColor={'#FFF'} barStyle={'dark-content'} />
+                <Url />
+            </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+});

@@ -13,14 +13,14 @@ class ReactNativeCompileAssets extends Command
      * @var string
      */
     protected $signature = 'reactnative:compile 
-                            {extension? : File type .css or .js}';
+                            {type? : File type styles | libs | scripts}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Compile CSS files or JS files where sources come from config(\'reactnative.css\') or config(\'reactnative.js\')';
+    protected $description = 'Compile CSS files or JS files where sources come from config file';
 
     /**
      * Create a new command instance.
@@ -39,11 +39,11 @@ class ReactNativeCompileAssets extends Command
      */
     public function handle(): void
     {
-        $arg = $this->argument('extension');
+        $arg = $this->argument('type');
         $command = $this->argument('command');
         $method = (strpos($command, ':') > 0) ? explode(':', $command)[1] : '';
 
         // Execute Quantical Solutions ReactNative command
-        new Listener($this, $method, $arg, false);
+        new Listener($this, $method, $arg);
     }
 }

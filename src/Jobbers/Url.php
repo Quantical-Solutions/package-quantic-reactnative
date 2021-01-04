@@ -6,7 +6,7 @@ namespace Quantic\ReactNative\Jobbers;
 class Url
 {
     private string $arg;
-    public array $response;
+    public array $response; // return CLI message
 
     public function __construct($arg)
     {
@@ -22,38 +22,78 @@ class Url
      */
     private function buildReactNativeFile()
     {
-        $app = "import React, { Component, useState } from 'react';
-import { StatusBar } from 'react-native';
-import Url from './includes/components/Url';
+        $app = "import React, { Component } from 'react';
+import {StatusBar, View, StyleSheet} from 'react-native';
+import {Url} from './includes/components/Url';
 
 export default class App extends Component {
 
     render() {
         return (
-            <>
+            <View style={styles.container}>
                 <StatusBar hidden={false} backgroundColor={'" . config("reactnative.statusBar.backgroundColor") . "'} barStyle={'" . config("reactnative.statusBar.fontColor") . "'} />
                 <Url />
-            </>
+            </View>
         );
     }
-}";
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+});";
 
         if ($this->arg !== 'none') {
 
             if (filter_var($this->arg, FILTER_VALIDATE_URL)) {
 
-                $url = "import React, { Component } from 'react';
+                $url = "import React from 'react';
 import { WebView } from 'react-native-webview';
+import {Text, View, StyleSheet} from 'react-native';
+import {useNetInfo} from '@react-native-community/netinfo';
+import Logo from '../../assets/not-connected.svg';
 
-export default class Url extends Component {
-    render() {
-        return (
-            <>
-                <WebView source={{ uri: 'https://omnivision.quanticalsolutions.com' }} />
-            </>
-        )
+export const Url = () => {
+    const netInfo = useNetInfo();
+
+    return (
+        <>
+            { netInfo.type === 'wifi' ?
+                <WebView source={{ uri: '" . $this->arg . "' }} />
+            :
+                <View style={styles.view}>
+                    <Logo style={styles.logo} />
+                    <Text style={styles.text}>Connexion lost...</Text>
+                    <Text style={styles.small}>
+                        Internet is required to continue browsing</Text>
+                </View>
+            }
+        </>
+    )
+}
+
+const styles = StyleSheet.create({
+    view: {
+        flex: 1,
+        backgroundColor: '#000',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    text: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 30,
+    },
+    small: {
+        color: 'gray',
+        fontSize: 14,
+    },
+    logo: {
+        width: 80,
+        height: 80
     }
-}";
+});";
 
                 try {
 
