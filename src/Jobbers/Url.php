@@ -11,31 +11,94 @@ class Url
     public function __construct($arg)
     {
         $this->arg = $arg;
-        $this->buildAppFile();
+        $this->buildReactNativeFile();
         return $this->response;
     }
 
-    private function buildAppFile()
+    /**
+     * Build Files for WebView ReactNative App
+     *
+     * @return void
+     */
+    private function buildReactNativeFile()
     {
-        if (filter_var($this->arg, FILTER_VALIDATE_URL)) {
-
-            $js = "import { StatusBar } from 'expo-status-bar';
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { WebView } from 'react-native-webview';
+        $app = "import React, { Component, useState } from 'react';
+import { StatusBar } from 'react-native';
+import Url from './includes/components/Url';
 
 export default class App extends Component {
 
     render() {
-
         return (
-
-            <WebView
-                source={{ uri: '" . $this->arg . "' }}
-            />
+            <>
+                <StatusBar hidden={false} backgroundColor={'" . config("reactnative.statusBar.backgroundColor") . "'} barStyle={'" . config("reactnative.statusBar.fontColor") . "'} />
+                <Url />
+            </>
         );
     }
 }";
+
+        if ($this->arg !== 'none') {
+
+            if (filter_var($this->arg, FILTER_VALIDATE_URL)) {
+
+                $url = "import React, { Component } from 'react';
+import { WebView } from 'react-native-webview';
+
+export default class Url extends Component {
+    render() {
+        return (
+            <>
+                <WebView source={{ uri: 'https://omnivision.quanticalsolutions.com' }} />
+            </>
+        )
+    }
+}";
+
+                try {
+
+                    $dist = app_path('ReactNative');
+
+                    $ifAppJsExists = $dist . '/App.js';
+                    if (file_exists($ifAppJsExists)) {
+                        unlink($ifAppJsExists);
+                    }
+
+                    $newAppFile = fopen($ifAppJsExists, 'w');
+                    fwrite($newAppFile, $app);
+                    fclose($newAppFile);
+
+                    $ifUrlJsExists = $dist . '/includes/components/Url.js';
+                    if (file_exists($ifUrlJsExists)) {
+                        unlink($ifUrlJsExists);
+                    }
+
+                    $newUrlFile = fopen($ifUrlJsExists, 'w');
+                    fwrite($newUrlFile, $url);
+                    fclose($newUrlFile);
+
+                    $this->response = [
+                        'type' => 'info',
+                        'response' => 'App.js and Url.js have been created successfuly !'
+                    ];
+
+                } catch (\ErrorException $e) {
+
+                    $this->response = [
+                        'type' => 'warn',
+                        'response' => 'Somthing went wrong while creating App.js and Url.js files... !'
+                    ];
+                }
+
+            } else {
+
+                $this->response = [
+                    'type' => 'error',
+                    'response' => '"' . $this->arg . '" is not a valid URL !'
+                ];
+            }
+
+        } else {
 
             try {
 
@@ -47,7 +110,7 @@ export default class App extends Component {
                 }
 
                 $newAppFile = fopen($ifAppJsExists, 'w');
-                fwrite($newAppFile, $js);
+                fwrite($newAppFile, $app);
                 fclose($newAppFile);
 
                 $this->response = [
@@ -58,17 +121,10 @@ export default class App extends Component {
             } catch (\ErrorException $e) {
 
                 $this->response = [
-                    'type' => 'warn',
+                    'type' => 'error',
                     'response' => 'Somthing went wrong while creating App.js file... !'
                 ];
             }
-
-        } else {
-
-            $this->response = [
-                'type' => 'error',
-                'response' => '"' . $this->arg . '" is not a valid URL !'
-            ];
         }
     }
 }

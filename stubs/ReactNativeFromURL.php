@@ -44,6 +44,6 @@ class ReactNativeFromURL extends Command
         $method = (strpos($command, ':') > 0) ? explode(':', $command)[1] : '';
 
         // Execute Quantical Solutions ReactNative command
-        new Listener($this, $method, $arg, false);
+        new Listener($this, $method, $arg);
     }
 }

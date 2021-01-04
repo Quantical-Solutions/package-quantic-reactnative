@@ -15,7 +15,7 @@ return [
         ],
         'scripts' => [
             'head' => [
-                //base_path('public/js/jquery.min.js')
+                base_path('public/js/jquery.min.js')
             ],
             'footer' => [
                 base_path('public/js/app.js')
@@ -30,5 +30,14 @@ return [
 
     'navigation' => [
         //
+    ],
+
+    /*
+     * Set StatusBar BackgroundColor et FontColor
+     */
+
+    'statusBar' => [
+        'backgroundColor' => '#FFF',
+        'fontColor' => 'dark-content' // 'default' | 'light-content' | 'dark-content'
     ]
 ];

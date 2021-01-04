@@ -9,10 +9,10 @@ class Listener
     private Array $response;
     private Object $console;
 
-    public function __construct($console, $method, $arg, $option)
+    public function __construct($console, $method, $arg)
     {
         $this->console = $console;
-        $this->parseJobToDo($method, $arg, $option);
+        $this->parseJobToDo($method, $arg);
     }
 
     /**
@@ -20,9 +20,9 @@ class Listener
      *
      * @return void
      */
-    private function parseJobToDo($method, $arg, $option)
+    private function parseJobToDo($method, $arg)
     {
-        if ($arg === null) {
+        if ($method !== 'url' && $arg === null) {
 
             switch ($method)
             {
@@ -40,18 +40,11 @@ class Listener
                     $this->console->info('reactnative:compile styles | libs | scripts | all | remove');
                     $this->console->newline();
                     break;
-                case 'url':
-                    $this->console->newline();
-                    $this->console->error('Error -> missing argument...');
-                    $this->console->warn('You need to specify an URL for the WebView component source like in the exemple below:');
-                    $this->console->info('reactnative:url http://exemple.com');
-                    $this->console->newline();
-                    break;
             }
 
-        } else {
+        } else if ($method === 'url') {
 
-            $workers = new Workers($method, $arg, $option);
+            $workers = new Workers($method, $arg);
             $this->response = $workers->response;
             $this->render();
         }

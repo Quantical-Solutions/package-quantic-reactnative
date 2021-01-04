@@ -13,7 +13,7 @@ class Workers
 
     public function __construct($method, $arg)
     {
-        $this->arg = $arg;
+        $this->arg = ($arg === null) ? 'none' : $arg;
         return $this->$method();
     }
 
@@ -40,7 +40,7 @@ class Workers
     }
 
     /**
-     * Use Quantic\ReactNative\Jobbers\Compiler to compile assets files
+     * Use Quantic\ReactNative\Jobbers\Compiler to compile url files
      *
      * @return void
      */
