@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import {StatusBar, View, StyleSheet, Text} from 'react-native';
-import Logo from "../../../../../app/ReactNative/assets/not-connected.svg";
+import Logo from "./assets/not-connected.svg";
 
 export default class App extends Component {
 
     render() {
         return (
-            <View style={styles.view}>
-                <Logo style={styles.logo} />
-                <Text style={styles.text}>Ready to play ?</Text>
-                <Text style={styles.small}>
-                    Welcome to your Laravel - ReactNative Package</Text>
-            </View>
+            <>
+                <StatusBar hidden={false} backgroundColor={'white'} barStyle={'dark-content'} />
+                <View style={styles.view}>
+                    <Logo style={styles.logo} />
+                    <Text style={styles.text}>Ready to play ?</Text>
+                    <Text style={styles.small}>
+                        Welcome to your Laravel - ReactNative Package</Text>
+                </View>
+            </>
         );
     }
 }

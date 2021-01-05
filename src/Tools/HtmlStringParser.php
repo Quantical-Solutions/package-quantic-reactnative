@@ -113,11 +113,6 @@ class HtmlStringParser
                 fwrite($newHead, $this->head);
                 fclose($newHead);
 
-                $this->result = [
-                    'type' => 'info',
-                    'response' => 'head.html has been created successfuly !'
-                ];
-
             } catch (\ErrorException $e) {
 
                 $this->result = [
@@ -137,11 +132,6 @@ class HtmlStringParser
                 fwrite($newFooter, $this->footer);
                 fclose($newFooter);
 
-                $this->result = [
-                    'type' => 'info',
-                    'response' => 'footer.html has been created successfuly !'
-                ];
-
             } catch (\ErrorException $e) {
 
                 $this->result = [
@@ -149,6 +139,11 @@ class HtmlStringParser
                     'response' => 'Something went wrong while trying to create footer.html in ReactNative includes/common folder...'
                 ];
             }
+
+            $this->result = [
+                'type' => 'info',
+                'response' => 'head.html and footer.html have been created successfuly !'
+            ];
             
         } else {
 

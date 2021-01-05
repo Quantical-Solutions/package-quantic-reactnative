@@ -22,32 +22,9 @@ class Listener
      */
     private function parseJobToDo($method, $arg)
     {
-        if ($method !== 'url' && $arg === null) {
-
-            switch ($method)
-            {
-                case 'create':
-                    $this->console->newline();
-                    $this->console->error('Error -> missing argument...');
-                    $this->console->warn('You need to explicit a file name like in the exemple below:');
-                    $this->console->info('reactnative:create head | footer | all');
-                    $this->console->newline();
-                    break;
-                case 'compile':
-                    $this->console->newline();
-                    $this->console->error('Error -> missing argument...');
-                    $this->console->warn('You need to specify an asset type like in the exemple below:');
-                    $this->console->info('reactnative:compile styles | libs | scripts | all | remove');
-                    $this->console->newline();
-                    break;
-            }
-
-        } else if ($method === 'url') {
-
-            $workers = new Workers($method, $arg);
-            $this->response = $workers->response;
-            $this->render();
-        }
+        $workers = new Workers($method, $arg);
+        $this->response = $workers->response;
+        $this->render();
     }
 
     /**
