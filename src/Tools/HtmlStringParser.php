@@ -144,7 +144,72 @@ class HtmlStringParser
                 'type' => 'info',
                 'response' => 'head.html and footer.html have been created successfuly !'
             ];
-            
+
+        } else if ($arg === 'navigation') {
+
+            $base = app_path('ReactNative');
+
+            try {
+
+                $ifAppExists = $base . '/App.js';
+                if (file_exists($ifAppExists)) {
+                    unlink($ifAppExists);
+                }
+
+                $app = "import React, { Component } from 'react';
+import {StatusBar, View, StyleSheet} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+    </View>
+  );
+}
+
+const Stack = createStackNavigator();
+
+export default class App extends Component {
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <StatusBar hidden={false} backgroundColor={'" . config("reactnative.statusBar.backgroundColor") . "'} barStyle={'" . config("reactnative.statusBar.fontColor") . "'} />
+                <NavigationContainer>
+                    <Stack.Navigator>
+                        <Stack.Screen name='Home' component={HomeScreen} />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+});";
+
+                $newApp = fopen($ifAppExists, 'w');
+                fwrite($newApp, $app);
+                fclose($newApp);
+
+            } catch (\ErrorException $e) {
+
+                $this->result = [
+                    'type' => 'error',
+                    'response' => 'Something went wrong while trying to create the Navigation Stack...'
+                ];
+            }
+
+            $this->result = [
+                'type' => 'info',
+                'response' => 'Navigaton Stack has been created successfuly !'
+            ];
+
         } else {
 
             $this->result = [
